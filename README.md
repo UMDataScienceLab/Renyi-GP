@@ -11,8 +11,4 @@
 
 * [R](https://www.r-project.org/)
 
-## Code
 
-* main_1.R: the main file that is used to learn our model
-* logL.R: return the log-likelihood function
-* branin.R, griewank.R, grlee12.r: the simulation functions
