@@ -30,19 +30,30 @@ K = 1 # number of latent variable
 require(geozoo) # generate high dimensional data
 source("griewank.R") # simulation data
 
-dim = 4
-input_size = 300
-test_size = 1000
+dim = 4 # this is a 4 dimensional example
+input_size = 300 # you can change input size here
+test_size = 1000 # you can change test size here
 
 x <- cube.solid.random(dim, input_size)  # generate inputs
 z <- cube.solid.random(dim, 10); z <- z$points # generate psedo-inputs, change number based on sample size
 x <- x$points
 
 
+
 x_test <- cube.solid.random(dim, test_size)
 x_test <- x_test$points
 
+#
+# for(i in 1:4){
+#   x[,i] <- (x[,i]-mean(x[,i]))/std(x[,i])
+#   z[,i] <- (z[,i]-mean(z[,i]))/std(z[,i])
+#   # x_test[,i] <- (x_test[,i]-mean(x_test[,i]))/std(x_test[,i])
+# }
+#
+
 y <- apply(x, 1, griewank) # generate outputs
+
+## y <- (y-mean(y))/std(y) ##
 
 input_size = dim(x)[1]
 test_size = dim(x_test)[1]
@@ -50,6 +61,8 @@ test_size = dim(x_test)[1]
 ### covariance functions and log-marginal likelihood ###
 
 ### here, u is the latent variable ###
+
+### !!! Please refer to "different_length.R" if you want to use different length parameter for each dimension ###
 
 cuu <- function(a,b,L){
   d <- plgp::distance(a,b) #plgp::distance is a square!
@@ -144,6 +157,10 @@ for(j in 1:20){
 # print(alpha) 
 
 y_test <- apply(x_test, 1, griewank) # generate test output
+
+# for(i in 1:4) x_test[,i] <- (x_test[,i]-mean(x_test[,i]))/std(x_test[,i]) ##
+# y_test <- (y_test-mean(y_test))/std(y_test) ## 
+
 
 ypred = cff(x_test, x_pool, H0)%*%solve(cff(x_pool, x_pool, H0)+ diag(H0[2*n+2]^2, input_size))%*%y_pool # prediction
 
