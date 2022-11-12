@@ -38,11 +38,12 @@ mBCG_noT <- function(A, B, P, maxiter = 10000, tol = 1e-05){
     iter = iter + 1
     Ap = A %*% D
     a = as.numeric( (t(R*Z)%*%one)/(t(D*Ap)%*%one) )
-    U0 = U0 + t(diag(a) %*% t(D))
-    R1 = R - t(diag(a) %*% t(Ap))
+    a = as.numeric(a)
+    U0 = U0 + t(diag(a, ncol=dim(D)[2]) %*% t(D))
+    R1 = R - t(diag(a, ncol=dim(D)[2]) %*% t(Ap))
     Z1 = Pinv %*% R1
     bet = as.numeric( (t(Z1*R1)%*%one)/(t(Z*R)%*%one) )
-    D = Z1 + t(diag(bet) %*% t(D))
+    D = Z1 + t(diag(bet, ncol=dim(D)[2]) %*% t(D))
     Z = Z1
     R = R1
     sumr2 = norm(R)

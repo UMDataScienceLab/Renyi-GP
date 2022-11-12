@@ -161,8 +161,16 @@ y_test <- apply(x_test, 1, griewank) # generate test output
 # for(i in 1:4) x_test[,i] <- (x_test[,i]-mean(x_test[,i]))/std(x_test[,i]) ##
 # y_test <- (y_test-mean(y_test))/std(y_test) ## 
 
+# regular prediction #
+# ypred = cff(x_test, x_pool, H0)%*%solve(cff(x_pool, x_pool, H0)+ diag(H0[2*n+2]^2, input_size))%*%y_pool 
+########################
 
-ypred = cff(x_test, x_pool, H0)%*%solve(cff(x_pool, x_pool, H0)+ diag(H0[2*n+2]^2, input_size))%*%y_pool # prediction
+
+### BBMM prediction ###
+K_plus_sigma = cff(x_pool, x_pool, H0)+ diag(H0[2*n+2]^2, input_size) 
+K_plus_sigma_inv_y <- mBCG_noT(K_plus_sigma , as.matrix(y_pool), maxiter = MAT_ITER)
+ypred = cff(x_test, x_pool, H0)%*%K_plus_sigma_inv_y
+#######################
 
 sqrt(sum((y_test-ypred)^2))/sqrt(test_size) # RMSE
 
