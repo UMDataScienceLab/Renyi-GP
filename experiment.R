@@ -342,12 +342,7 @@ print(alpha)
 
 ypred = cff(x_test, x_pool, H0)%*%solve(cff(x_pool, x_pool, H0)+ diag(H0[2*n+2]^2, input_size))%*%y_pool
 
-lines(ypred~x_test, col="red")
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-
-plot(y_test~x_test)
-lines(ypred~x_test, col="red")
 
 
 
