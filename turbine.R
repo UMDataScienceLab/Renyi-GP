@@ -27,7 +27,7 @@ alpha = 0.99 # initial value of alpha
 n = 1 # number of individual
 K = 1 # number of latent variable
 
-setwd("CMAPSSData")
+setwd("CMAPSSData/CMAPSSData")
 FD001 <- read.table("train_FD001.txt", head=FALSE)
 Data <- FD001[(FD001[, 1]==1),]
 range01 <- function(x){(x-min(x))/(max(x)-min(x)) + 0.0} 
