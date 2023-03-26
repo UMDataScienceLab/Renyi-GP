@@ -1,4 +1,4 @@
-## The griewank function
+## The griewank function from https://www.sfu.ca/~ssurjano/griewank.html
 
 griewank <- function(xx)
 {
