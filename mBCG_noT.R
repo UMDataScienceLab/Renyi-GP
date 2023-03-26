@@ -1,3 +1,5 @@
+## The conjugate gradient method used in the BBMM algorithm ##
+
 #~~~~~~~~~~ mBCG algorithm without T matrices ~~~~~~~~~~#
 
 mBCG_noT <- function(A, B, P, maxiter = 10000, tol = 1e-05){
