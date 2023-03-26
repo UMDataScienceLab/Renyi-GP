@@ -15,8 +15,8 @@
 
 * CMAPSSData.zip -- the NASA condition monitoring dataset
 * contour_plot_1.R, contour_plot_2.r and high_dimension_plot.R -- generate contour plots in our main paper
-* different_length.R -- optimizing the $\alpha$-ELBO$ using high-dimensional input data. Each dimension $d$ has one length parameter $\ell_d$
 * experiment.R -- optimizing the $\alpha$-ELBO$ using high-dimensional input data. All dimensions have the same length parameter $\ell$
+* different_length.R -- optimizing the $\alpha$-ELBO$ using high-dimensional input data. This file is similar to "experiment.R", yet we assign a unique length parameter $\ell_d$ to each dimension $d$, instead of using the same length parameter
 * griewank.R and grlee12.r -- simulation functions
 * logL.R -- our objective function
 * mBCG_noT.R -- the blackbox matrix-matrix multiplication (BBMM) algorithm
