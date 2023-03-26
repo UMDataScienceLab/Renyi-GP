@@ -1,3 +1,6 @@
+## This file tests our algorithm using simulated dataset (Section 8.1 in our main paper)
+## Our input dimension is D. For each dimension d, we assign a different length parameter \ell_d
+
 
 require(Matrix) ## create diagonal matrix
 require(nloptr) ## optimizer
