@@ -84,7 +84,7 @@ logL=function(H, fn)
   
   B2 <-  diag(1, ncol(r_cuu)) + (1-2*alpha) * mBCG_noT(r_cuu, t(r_cfu), maxiter = MAT_ITER)%*%B_inv_y[,2:(ncol(RHS))] # calculate C_x in Appendix C
   
-  logdeter2 <- log(det(B2)) # calculate the determinant
+  logdeter2 <- log(det(B2)) # calculate the log determinant
   
   # return alpha-ELBO objective
   a <- -0.5*log(2*pi)*length(y) + 
