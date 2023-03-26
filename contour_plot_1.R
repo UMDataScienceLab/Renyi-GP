@@ -1,3 +1,6 @@
+## This file is used to generate Figure 1 in our main paper
+## Please adjust the values of alpha to get different contour plots
+
 ## global parameters ##
 
 require(MASS)
