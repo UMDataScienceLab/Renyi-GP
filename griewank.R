@@ -1,3 +1,5 @@
+## The griewank function
+
 griewank <- function(xx)
 {
   
