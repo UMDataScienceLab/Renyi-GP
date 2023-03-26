@@ -11,7 +11,7 @@
 
 * [R](https://www.r-project.org/)
 
-## files
+## Files
 
 * CMAPSSData.zip -- the NASA condition monitoring dataset
 * contour_plot_1.R, contour_plot_2.r and high_dimension_plot.R -- generate contour plots in our main paper
@@ -19,5 +19,12 @@
 * experiment.R -- optimizing the $\alpha$-ELBO$ using high-dimensional input data. All dimensions have the same length parameter
 * griewank.R and grlee12.r -- simulation functions
 * logL.R -- our objective function
-* mBCG_noT.R -- the BBMM algorithm
+* mBCG_noT.R -- the blackbox matrix-matrix multiplication (BBMM) algorithm
 * turbine.R -- code to test our algorithm on the NASA condition monitoring dataset
+
+## Implementation
+
+* Our objective function $\alpha$-ELBO is defined in the file "LogL.R". This file includes the implementation of Eq. (7) in Sec. 4.2 in our main paper. 
+* Files "different_length.R", "experiment.R", and "turbine.R" contain implementation of our algorithms using different dataset. 
+*     g_\alpha(\bm{\theta}_{total};\xi)\coloneqq\frac{1}{2}\bm{Y}_{\xi}^T\bm{\Xi}_{\xi}^{-1}\frac{d\bm{\Xi}_{\xi}}{d\bm{\theta}_{total}}\bm{\Xi}_{\xi}^{-1}\bm{Y}_{\xi}-\frac{1}{2}\Tr\bigg(\bm{\Xi}_{\xi}^{-1}\frac{d\bm{\Xi}_{\xi}}{d\bm{\theta}_{total}}\bigg)\nonumber-\frac{\alpha}{2(1-\alpha)}\Tr\bigg(A_{\xi}^{-1}\frac{dA_{\xi}}{d\bm{\theta}_{total}}\bigg),
+* The prediction is done through the BBMM algorithm. We implement a conjugate gradient method (in the file "mBCG_noT.R") to solve a quadratic optimization problem in Sec. 6 and obtain the predictive mean and variance.
