@@ -26,5 +26,5 @@
 
 * Our objective function $\alpha$-ELBO is defined in the file "LogL.R". This file includes the implementation of Eq. (7) in Sec. 4.2 in our main paper. 
 * Files "different_length.R", "experiment.R", and "turbine.R" contain implementation of our algorithms using different dataset. 
-*     g_\alpha(\bm{\theta}_{total};\xi)\coloneqq\frac{1}{2}\bm{Y}_{\xi}^T\bm{\Xi}_{\xi}^{-1}\frac{d\bm{\Xi}_{\xi}}{d\bm{\theta}_{total}}\bm{\Xi}_{\xi}^{-1}\bm{Y}_{\xi}-\frac{1}{2}\Tr\bigg(\bm{\Xi}_{\xi}^{-1}\frac{d\bm{\Xi}_{\xi}}{d\bm{\theta}_{total}}\bigg)\nonumber-\frac{\alpha}{2(1-\alpha)}\Tr\bigg(A_{\xi}^{-1}\frac{dA_{\xi}}{d\bm{\theta}_{total}}\bigg),
+*     $g_\alpha(\bm{\theta}_{total};\xi)\coloneqq\frac{1}{2}\bm{Y}_{\xi}^T\bm{\Xi}_{\xi}^{-1}\frac{d\bm{\Xi}_{\xi}}{d\bm{\theta}_{total}}\bm{\Xi}_{\xi}^{-1}\bm{Y}_{\xi}-\frac{1}{2}\Tr\bigg(\bm{\Xi}_{\xi}^{-1}\frac{d\bm{\Xi}_{\xi}}{d\bm{\theta}_{total}}\bigg)\nonumber-\frac{\alpha}{2(1-\alpha)}\Tr\bigg(A_{\xi}^{-1}\frac{dA_{\xi}}{d\bm{\theta}_{total}}\bigg)$,
 * The prediction is done through the BBMM algorithm. We implement a conjugate gradient method (in the file "mBCG_noT.R") to solve a quadratic optimization problem in Sec. 6 and obtain the predictive mean and variance.
