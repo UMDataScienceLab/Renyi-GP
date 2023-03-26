@@ -1,4 +1,4 @@
-## Gramacy & Lee (2012) Function
+## Gramacy & Lee (2012) Function from https://www.sfu.ca/~ssurjano/grlee12.html
 
 grlee12 <- function(x)
 {
