@@ -38,6 +38,8 @@ cff <- function(a,b,L){
 logL=function(H,fn)
 {
   
+  ## implementation of Eq. (7) in the main paper
+  
   r_cuu <- cuu(z, z, H); r_cfu <- cfu(x, z, H); r_cff <- cff(x, x, H)
   fuf <- r_cfu%*%mBCG_noT(r_cuu, t(r_cfu), maxiter = MAT_ITER)
   B <- H[6] * fuf + diag(H[2*n+2]^2, dim(fuf)[1]) + (1-H[6]) * r_cff
@@ -51,7 +53,7 @@ logL=function(H,fn)
   logdeter_A <- 2*(sum(log(diag(ch))))
   
   # logdeter <- log(det(  diag(1, ncol(r_cuu)) + H[6]* mBCG_noT(r_cuu, t(r_cfu), maxiter = MAT_ITER)%*%RHS[,2:(ncol(RHS))]  )) + logdeter_A
-  logdeter <- 0 + logdeter_A
+  logdeter <- logdeter_A
   
   B2 <-  diag(1, ncol(r_cuu)) + (1-2*H[6]) * mBCG_noT(r_cuu, t(r_cfu), maxiter = MAT_ITER)%*%B_inv_y[,2:(ncol(RHS))]
 
