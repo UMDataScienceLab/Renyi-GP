@@ -43,7 +43,7 @@ x <- x$points
 
 
 
-x_test <- cube.solid.random(dim, test_size)
+x_test <- cube.solid.random(dim, test_size) ## generate testing data
 x_test <- x_test$points
 
 #
@@ -84,8 +84,9 @@ cff <- function(a,b,L){
 
 logL=function(H,fn)
 {
+  # H[1-2] contains kernel parameters, H[4] contains additive noise variance parameter, H[6]=alpha
   
-  r_cuu <- cuu(z, z, H); r_cfu <- cfu(x, z, H); r_cff <- cff(x, x, H)
+  r_cuu <- cuu(z, z, H); r_cfu <- cfu(x, z, H); r_cff <- cff(x, x, H) # calculate covariance matrices
   fuf <- r_cfu%*%mBCG_noT(r_cuu, t(r_cfu), maxiter = MAT_ITER)
   B <- H[6] * fuf + diag(H[2*n+2]^2, dim(fuf)[1]) + (1-H[6]) * r_cff
   
