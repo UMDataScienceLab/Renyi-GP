@@ -5,27 +5,25 @@
 
 require(MASS)
 require(nloptr) ## optimizer
-require(pracma) ##
+require(pracma) ## numerical linear algebra
 source("mBCG_noT.R")
 source("logL.R")
 
 MAT_ITER = 5000 # max number of iterations for mBCG
 n = 1 # number of individual
-K = 1 # number of latent variable
 # opts <- list( "algorithm" = "NLOPT_LD_MMA","maxeval" = 10000, print_level = 3) # optimizer
 # x0 <- c(2, rep(1,2*n), 1, 0, alpha) # initial parameters
 iter = 1 # number of experiments
-input_size = 50
-test_size = 200
+input_size = 50 # number of input data points
+test_size = 200 # number of testing points
 
 #~~~~~ simulation: data generation ~~~~~#
 
 set.seed(2021)
-# MAT_ITER = 5000
-x <- seq(0,5, length.out = input_size); x_test <- sort(runif(test_size, 0, 5)) # replace it by input data
-sigma_f = 1.5 # GP parameter
-sigma_e = 0.1 # GP parameter
-length = 0.1 # GP parameter
+x <- seq(0,5, length.out = input_size); x_test <- sort(runif(test_size, 0, 5)) # input data
+sigma_f = 1.5 # GP variance scale parameter
+sigma_e = 0.1 # GP additive noise variance parameter
+length = 0.1 # GP length parameter
 cov_matrix <- cff(x, x, c(length, sigma_f)) + diag(sigma_e^2, input_size) # covariance matrix
 y <- output <- mvrnorm(1, rep(0, input_size), cov_matrix) # output data
 
@@ -33,7 +31,7 @@ y <- output <- mvrnorm(1, rep(0, input_size), cov_matrix) # output data
 
 plot(y~x, type="l")
 trains <- list(x); tests <- list(x_test); 
-z=seq( min(x) , max(x), length.out=10 ) ## pseudo-input
+z=seq( min(x) , max(x), length.out=10 ) ## pseudo-inputs or inducing points
 
 
 ### covariance functions ###
@@ -59,36 +57,36 @@ cff <- function(a,b,L){
 
 ### log-marginal likelihood ###
 
-alpha = 0
+alpha = 0 ## adjust alpha here and make new plot
 
 logL=function(H, fn)
 {
   # H[1] length parameter
-  # H[2] variance parameter
-  # H[3] noise parameter
+  # H[2] variance scale parameter
+  # H[3] additive noise variance parameter
   
   alpha = 0 ## adjust alpha here and make new plot
   
-  r_cuu <- cuu(z, z, H); r_cfu <- cfu(x, z, H); r_cff <- cff(x, x, H)
-  fuf <- r_cfu%*%mBCG_noT(r_cuu, t(r_cfu), maxiter = MAT_ITER)
-  B <- alpha * fuf + diag(H[3]^2, dim(fuf)[1]) + (1-alpha) * r_cff
+  r_cuu <- cuu(z, z, H); r_cfu <- cfu(x, z, H); r_cff <- cff(x, x, H) # calculate covariance matrices
+  fuf <- r_cfu%*%mBCG_noT(r_cuu, t(r_cfu), maxiter = MAT_ITER) # calculate low-rank approximation matrix Q
+  B <- alpha * fuf + diag(H[3]^2, dim(fuf)[1]) + (1-alpha) * r_cff # calculate the covariance of alpha-ELBO objective
   
   RHS <- cbind(y, r_cfu)
   
-  B_inv_y <- mBCG_noT(B, RHS, maxiter = MAT_ITER)
+  B_inv_y <- mBCG_noT(B, RHS, maxiter = MAT_ITER) # run conjugate method for efficient matrix product
   
-  A <- diag(H[3]^2, dim(fuf)[1]) + (1-alpha) * r_cff + alpha * fuf
-  ch <- chol(A + diag(0.1^2, ncol(A) ), pivot=TRUE, tol=1e-32)
-  logdeter_A <- 2*(sum(log(diag(ch))))
+  A <- diag(H[3]^2, dim(fuf)[1]) + (1-alpha) * r_cff + alpha * fuf # calculate matrix \xi in Eq. (6) defined in Appendix C
+  ch <- chol(A + diag(0.1^2, ncol(A) ), pivot=TRUE, tol=1e-32) # cholesky decomposition 
+  logdeter_A <- 2*(sum(log(diag(ch)))) # calculate log-determinant of \xi
   
   # logdeter <- log(det(  diag(1, ncol(r_cuu)) + H[6]* mBCG_noT(r_cuu, t(r_cfu), maxiter = MAT_ITER)%*%RHS[,2:(ncol(RHS))]  )) + logdeter_A
-  logdeter <- 0 + logdeter_A
+  logdeter <- logdeter_A
   
-  B2 <-  diag(1, ncol(r_cuu)) + (1-2*alpha) * mBCG_noT(r_cuu, t(r_cfu), maxiter = MAT_ITER)%*%B_inv_y[,2:(ncol(RHS))]
+  B2 <-  diag(1, ncol(r_cuu)) + (1-2*alpha) * mBCG_noT(r_cuu, t(r_cfu), maxiter = MAT_ITER)%*%B_inv_y[,2:(ncol(RHS))] # calculate C_x in Appendix C
   
-  logdeter2 <- log(det(B2))
+  logdeter2 <- log(det(B2)) # calculate the determinant
   
-  # likelihood
+  # return alpha-ELBO objective
   a <- -0.5*log(2*pi)*length(y) + 
     (-1/(2-2*alpha))*logdeter - 
     0.5*t(y)%*%B_inv_y[,1] + 
