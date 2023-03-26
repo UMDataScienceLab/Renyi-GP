@@ -1,3 +1,6 @@
+## This file is used to generate Figure 2 in our main paper
+## Please adjust the values of alpha to get different contour plots
+
 ## global parameters ##
 
 require(MASS)
@@ -12,6 +15,7 @@ K = 1 # number of latent variable
 iter = 1 # number of experiments
 input_size = 50
 test_size = 200
+
 #~~~~~ simulation: data generation ~~~~~#
 
 set.seed(2021)
@@ -20,7 +24,7 @@ x <- seq(0,5, length.out = input_size); x_test <- sort(runif(test_size, 0, 5)) #
 sigma_f = 1.5 # GP parameter
 sigma_e = 0.01 # GP parameter
 length = 0.01 # GP parameter
-cov_matrix <- cff(x, x, c(length, sigma_f)) + diag(sigma_e^2, input_size) # covariance matrix ef
+cov_matrix <- cff(x, x, c(length, sigma_f)) + diag(sigma_e^2, input_size) # covariance matrix 
 y <- output <- mvrnorm(1, rep(0, input_size), cov_matrix) # output data
 
 ### plot training data ###
@@ -54,7 +58,7 @@ cff <- function(a,b,L){
 
 logL=function(H)
 {
-  alpha = 0.99
+  alpha = 0.99 ## adjust alpha here to make new plot
   
   r_cuu <- cuu(z, z, H); r_cfu <- cfu(x, z, H); r_cff <- cff(x, x, H)
   fuf <- r_cfu%*%mBCG_noT(r_cuu, t(r_cfu), maxiter = MAT_ITER)
