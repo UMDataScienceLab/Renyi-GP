@@ -14,6 +14,7 @@ K = 1 # number of latent variable
 iter = 1 # number of experiments
 input_size = 50
 test_size = 200
+
 #~~~~~ simulation: data generation ~~~~~#
 
 set.seed(2021)
@@ -63,7 +64,7 @@ logL=function(H, fn)
   # H[2] variance parameter
   # H[3] noise parameter
   
-  alpha = 0
+  alpha = 0 ## adjust alpha here and make new plot
   
   r_cuu <- cuu(z, z, H); r_cfu <- cfu(x, z, H); r_cff <- cff(x, x, H)
   fuf <- r_cfu%*%mBCG_noT(r_cuu, t(r_cfu), maxiter = MAT_ITER)
@@ -96,6 +97,7 @@ logL=function(H, fn)
 }
 
 ### with the first set of initialization, the optimizer converges to
+
 set.seed(2021)
 opts <- list( "algorithm" = "NLOPT_LD_MMA","maxeval" = 10000, print_level = 3) # optimizer
 x0 <- c( 2*rand() , 2*rand(), 2*rand(), 0, 0, alpha) # change the fourth argument to smaller number
