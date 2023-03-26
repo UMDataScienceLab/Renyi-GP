@@ -24,6 +24,7 @@
 
 ## Implementation
 
+* Here we give a brief overview of our implementation. Please check each file to see the annotated version of our code.
 * Our objective function $\alpha$-ELBO is defined in the file "LogL.R". This file includes the implementation of Eq. (7) in Sec. 4.2 in our main paper. 
 * Files "different_length.R", "experiment.R", and "turbine.R" contain implementation of our algorithms using different dataset. We evaluate the gradient of $\alpha$-ELBO numerically using the "nloptr" package. In the optimization process, we take a batch of training data and evaluate the numerical gradient of $\alpha$-ELBO. We then update our model parameter by running gradient method implementated in the "nloptr" package.
 * The prediction is done through the BBMM algorithm. We implement a conjugate gradient method (in the file "mBCG_noT.R") to solve a quadratic optimization problem in Sec. 6 and obtain the predictive mean and variance.
