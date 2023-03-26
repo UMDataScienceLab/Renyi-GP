@@ -1,3 +1,5 @@
+## This file tests our algorithm using the real-life dataset. Please download the CMAPSSData file from our GitHub
+
 
 require(Matrix) ## create diagonal matrix
 require(nloptr) ## optimizer
@@ -78,6 +80,8 @@ cff <- function(a,b,L){
 
 logL=function(H,fn)
 {
+  
+  ## alpha-ELBO objective
   
   r_cuu <- cuu(z, z, H); r_cfu <- cfu(x, z, H); r_cff <- cff(x, x, H)
   fuf <- r_cfu%*%mBCG_noT(r_cuu, t(r_cfu), maxiter = MAT_ITER)
