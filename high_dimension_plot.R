@@ -1,3 +1,5 @@
+## This file is used to generate Figures 1 and 2 in Appendix
+
 require(MASS)
 require(nloptr) ## optimizer
 require(pracma) ##
