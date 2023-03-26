@@ -86,7 +86,7 @@ logL=function(H)
     (-alpha/(2*(1-alpha) ) )*( log(1/H[3]^2)*length(y) + logdeter2) 
   
   
-  return(as.numeric(-a)) # neg-lilelihood
+  return(as.numeric(-a)) # negative alpha-ELBO
   
 }
 
