@@ -1,3 +1,5 @@
+## Gramacy & Lee (2012) Function
+
 grlee12 <- function(x)
 {
   
