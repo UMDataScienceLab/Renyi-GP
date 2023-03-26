@@ -112,7 +112,7 @@ logL=function(H,fn)
     (-H[2+dim+1]/(2*(1-H[2+dim+1]) ) )*( log(1/H[1]^2)*length(y) + logdeter2) 
   
   
-  return(as.numeric(-a)) # neg-lilelihood
+  return(as.numeric(-a)) # negative alpha-ELBO
   
 }
 
