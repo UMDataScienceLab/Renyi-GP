@@ -11,4 +11,13 @@
 
 * [R](https://www.r-project.org/)
 
+## files
 
+* CMAPSSData.zip -- the NASA condition monitoring dataset
+* contour_plot_1.R, contour_plot_2.r and high_dimension_plot.R -- generate contour plots in our main paper
+* different_length.R -- optimizing the $\alpha$-ELBO$ using high-dimensional input data. Each dimension has one length parameter
+* experiment.R -- optimizing the $\alpha$-ELBO$ using high-dimensional input data. All dimensions have the same length parameter
+* griewank.R and grlee12.r -- simulation functions
+* logL.R -- our objective function
+* mBCG_noT.R -- the BBMM algorithm
+* turbine.R -- code to test our algorithm on the NASA condition monitoring dataset
