@@ -1,3 +1,5 @@
+## This file contains a detailed implementation of our objective
+
 #~~~~~~~~~~ covariance functions and likelihood functions ~~~~~~~~~~#
 
 require(plgp) # construct covariance matrix with D dimension inputs
@@ -31,7 +33,7 @@ cff <- function(a,b,L){
 # }
 
 
-### log-marginal likelihood ###
+### \alpha-ELBO ###
 
 logL=function(H,fn)
 {
@@ -62,7 +64,7 @@ logL=function(H,fn)
     (-H[6]/(2*(1-H[6]) ) )*( log(1/H[4]^2)*length(y) + logdeter2) 
   
   
-  return(as.numeric(-a)) # neg-lilelihood
+  return(as.numeric(-a)) # negative alpha-ELBO
   
 }
 
