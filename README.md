@@ -28,3 +28,20 @@
 * Our objective function $\alpha$-ELBO is defined in the file "LogL.R". This file includes the implementation of Eq. (7) in Sec. 4.2 in our main paper. 
 * Files "different_length.R", "experiment.R", and "turbine.R" contain implementation of our algorithms using different datasets. We evaluate the gradient of $\alpha$-ELBO numerically using the "nloptr" package. In the optimization process, we take a batch of training data and evaluate the numerical gradient of $\alpha$-ELBO. We then update our model parameter by running the gradient method implemented in the "nloptr" package.
 * The prediction is made through the BBMM algorithm. We implement a conjugate gradient method (in the file "mBCG_noT.R") to solve a quadratic optimization problem in Sec. 6 and obtain the predictive mean and variance.
+
+## Citation
+
+[Paper](https://doi.org/10.1080/24725854.2023.2219468) (IISE Transactions, 2024). If you use this code, please cite:
+
+```bibtex
+@article{yue2024optimize,
+  title={Optimize to Generalize in {G}aussian Processes: An Alternative Objective Based on the {R}{\'e}nyi Divergence},
+  author={Yue, Xubo and Al Kontar, Raed},
+  journal={IISE Transactions},
+  volume={56},
+  number={6},
+  pages={600--610},
+  year={2024},
+  doi={10.1080/24725854.2023.2219468}
+}
+```
